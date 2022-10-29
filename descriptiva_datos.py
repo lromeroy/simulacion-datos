@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 
+from modelo_descriptiva_datos import ModeloDescriptivaDatos
 import statistics
 import csv
 
 def descriptiva_datos(file):
 	reader = csv.reader(file, delimiter=',')
-	values = list()
+	modelList = list()
 	for row in reader:
-		values += row
-	values = valuesToNumeric(values)
-	print('Valores: ', values)
-	print('Ordenar:', sorted(values))
-	print('Media: ', statistics.mean(values))
-	print('Moda: ', statistics.mode(values))
-	print('Mediana: ', statistics.median(values))
-	print('Varianza: ', statistics.pvariance(values))
-	print('Desviacion Estandard: ', statistics.pstdev(values))
+		values = valuesToNumeric(row)
+		modelo = ModeloDescriptivaDatos(values,
+		 statistics.mean(values),
+		 statistics.mode(values),
+		 statistics.median(values),
+		 statistics.pvariance(values),
+		 statistics.pstdev(values))
+		modelo.print()
+		modelList.append(modelo)
+
+	return modelList	
+		
 
 def valuesToNumeric(values):
 	newValues = list()
@@ -23,7 +27,7 @@ def valuesToNumeric(values):
 		try:
 			newValues.append(float(value))
 		except:
-			newValues.append(value)
+			if value != '': newValues.append(value)
 	return newValues
 
 if __name__ := '__main__':
