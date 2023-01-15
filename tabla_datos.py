@@ -26,7 +26,7 @@ def getFrecuency(values):
     frequencyDict = dict()
     lenght = len(values)
     for key, value in valuesCount.items():
-        frequencyDict[key] = value / lenght
+        frequencyDict[key] = round(value / lenght, 2)
     print('Frecuencia:' + str(frequencyDict))
     return frequencyDict
 
